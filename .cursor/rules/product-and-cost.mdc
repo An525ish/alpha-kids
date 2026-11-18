@@ -1,0 +1,30 @@
+---
+description: Product/tech docs and cost guardrails for Alpha Kids
+alwaysApply: true
+---
+
+# Product & Cost Guardrails
+
+Canonical docs (read when changing product/backend direction):
+
+- `docs/PRODUCT.md` — product vision + § Voice
+- `docs/TECH.md` — stack, folders, coach mock note
+- `.cursor/rules/product-voice.mdc` / `.cursorrules` — user-facing copy standard
+- `.cursor/rules/safety-and-coach.mdc` — coach safety contract
+
+## Cost
+
+Stay cheap and local until product direction says otherwise:
+
+- No login, no database, no paid analytics/Sentry without TECH approval.
+- **No LLM provider yet.** Coach replies are mock / deterministic in `lib/server/coach/`.
+- Do not add `openai`, Anthropic, Gemini, Groq, OpenRouter, or any LLM API key env vars until `docs/TECH.md` is updated.
+- Zero secrets required to run the app locally.
+
+## Stack baseline
+
+**App:** Next.js 16 (App Router), React 19, Tailwind 4, Zod 4, TypeScript strict, Zustand for in-page chat state.
+
+## Auth / data
+
+No auth. No persistence. Conversation history lives in the page session (Zustand) only.

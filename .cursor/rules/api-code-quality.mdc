@@ -1,0 +1,24 @@
+---
+description: TypeScript and code quality for Alpha Kids API / server lib
+globs: app/api/**/*.ts,lib/server/**/*.ts
+alwaysApply: false
+---
+
+# API Code Quality
+
+## TypeScript
+
+- `strict` on. No `any` unless unavoidable at a boundary; prefer `unknown` + narrow.
+- Prefer named types from Zod (`z.infer`) or shared types over repeated inline object types.
+
+## Robustness
+
+- Never empty `catch {}`. Return a clear error Response or rethrow.
+- Validate input with Zod at the route boundary.
+- One response path per success/error branch.
+- Do not log secrets (there should be none today).
+
+## Dependencies
+
+- Do not add LLM SDKs or API key loaders until TECH approval.
+- Keep handlers fast; mock delay only if the UI needs a realistic loading state (cap under ~1s).

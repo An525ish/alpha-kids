@@ -1,0 +1,42 @@
+---
+description: API layering for Next route handlers — route → service → mock
+globs: app/api/**/*.ts,lib/server/**/*.ts
+alwaysApply: false
+---
+
+# API Architecture (SoC)
+
+## Layers (one job each)
+
+| Layer | Folder | Allowed to do | Must NOT do |
+|---|---|---|---|
+| Route handlers | `app/api/**/route.ts` | Parse req, validate, call service, return Response | Business rules, prompt/mock text, keyword lists |
+| Services | `lib/server/coach/service.ts` | Orchestration | HTTP `Request`/`Response` details beyond inputs |
+| Mock / safety | `lib/server/coach/mock.ts`, `safety.ts` | Deterministic replies + crisis heuristics | Touch HTTP |
+| Schema | `lib/server/coach/schema.ts` | Zod request/response only | Side effects |
+| Errors | `lib/server/errors.ts` | Typed errors / helpers | Feature orchestration |
+
+## Naming
+
+Folder already states the role: `service.ts`, not `coach.service.ts`.
+
+## No database layer
+
+No repositories/models. Do not invent a fake DB layer.
+
+## No LLM client (current)
+
+Coach is mock-only. Do not add `openai.ts` or provider SDKs until `docs/TECH.md` is updated.
+Keep `getCoachReply(input)` as the stable service interface so a provider can replace `mock.ts` later.
+
+## Route handlers stay thin
+
+```ts
+// ✅ thin
+export async function POST(request: Request) {
+  const body = await request.json();
+  const input = coachRequestSchema.parse(body);
+  const result = await getCoachReply(input);
+  return Response.json(result);
+}
+```

@@ -1,0 +1,29 @@
+---
+description: Coach safety contract — no diagnosis, escalate crises
+alwaysApply: true
+---
+
+# Safety & Coach Contract
+
+Applies to mock coach logic, future LLM prompts, and coach UI.
+
+## Always
+
+- No diagnosis. No medical or legal instructions.
+- Keep replies brief and practical.
+- Structured coach shape: short summary → few practical steps → follow-up check-in (question or time to come back).
+- Reply in the parent’s language when detectable (English or Urdu). Urdu surfaces use RTL where needed.
+
+## Escalate hard
+
+When the parent describes emergency, abuse, or self-harm:
+
+- Return `mode: "escalate"` (not a normal coaching plan).
+- Clear, calm redirect to local emergency / trusted help.
+- Do not continue with tips as if this were a routine concern.
+- Mock path must still detect EN + common Urdu crisis phrases via heuristics in `lib/server/coach/safety.ts`.
+
+## Product honesty
+
+- UI must say this is not a doctor and not for emergencies.
+- Do not invent hotline numbers unless PRODUCT/TECH supplies real, region-specific ones.

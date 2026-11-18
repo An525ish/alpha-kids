@@ -1,0 +1,41 @@
+---
+description: Client stack, DRY, CSS, quality bar for Alpha Kids
+globs: app/**/*.{ts,tsx,js,jsx,css},features/**/*.{ts,tsx,js,jsx,css},shared/**/*.{ts,tsx,js,jsx,css},styles/**/*.css
+alwaysApply: false
+---
+
+# Client Code Quality
+
+## Stack — current idioms only
+
+React 19 · TS (strict) · Next.js 16 App Router · Tailwind v4 · Zustand v5 · Zod 4.
+
+- Conversation / UI session state → Zustand (selectors; no server secrets inside).
+- Coach API turns → feature hook calling `features/coach/api`. Not `useState`+`useEffect`+fetch soup.
+- Forms / payloads → Zod schemas as source of truth; prefer `z.infer`.
+- `useEffect` only for external systems (DOM focus, scroll); always clean up.
+- Function components + hooks only. No class components, deprecated APIs, or `any`.
+
+## CSS homes
+
+- App tokens / `@theme` / shared utilities → `app/globals.css`.
+- Coach desk atmosphere / feature composites → colocated CSS next to the feature (e.g. `features/coach/components/*.css`) or `styles/`.
+- Do not keep appending large feature blobs into `globals.css`.
+
+## DRY — single source of truth
+
+Search before you write. Reuse or extend. Never paste a second copy of a type, constant, or behavior.
+
+## Quality bar
+
+- **≤ 350 lines/file.** Over → split.
+- No `console.*`, commented-out code, dead code, or unused exports.
+- A11y: semantic HTML, keyboard controls, `aria-label` on icon buttons, `aria-hidden` on decorative SVGs, visible focus, honor `prefers-reduced-motion`.
+- Path alias `@/` for cross-layer imports; relative only within a feature/folder.
+- Naming: Components PascalCase; hooks `useX`; utils camelCase; scalars SCREAMING_SNAKE_CASE; folders kebab-case.
+- Before done: `npm run typecheck` and `npm run lint` must pass.
+
+## Performance
+
+- Subscribe to narrow Zustand slices.
+- Keep message list simple until it grows long enough to virtualize.

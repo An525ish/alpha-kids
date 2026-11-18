@@ -1,0 +1,19 @@
+# Alpha Kids — Cursor rules
+
+Detailed rules live in `.cursor/rules/*.mdc` (always apply + client/api globs).
+Read those first. Do not invent rules that are not there or in `docs/`.
+
+## Product voice (always)
+
+User-facing copy must sound human, not AI-generated.
+
+- No em dashes (`—`). Prefer periods, commas, colons, or a rewrite.
+- No stacked metaphors, fake profundity, or corporate warmth.
+- Prefer concrete actions and facts ("Type what's going on", "This is not a doctor").
+- Full standard: `.cursor/rules/product-voice.mdc`, `docs/PRODUCT.md` § Voice.
+
+Home is a coach desk: **Alpha Kids** as the hero brand, one concern field, then the thread.
+
+## Coach (current)
+
+Replies are **mock / deterministic** in `lib/server/coach/`. Do not add LLM SDKs or API keys until `docs/TECH.md` says so.

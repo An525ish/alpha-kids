@@ -1,0 +1,54 @@
+---
+description: Client feature-sliced architecture — app → features → shared
+globs: app/**/*.{ts,tsx,js,jsx,css},features/**/*.{ts,tsx,js,jsx,css},shared/**/*.{ts,tsx,js,jsx,css},styles/**/*.css
+alwaysApply: false
+---
+
+# Client Architecture
+
+## One-way dependencies
+
+```
+app (pages)  ──▶  features  ──▶  shared
+                  (features may use shared; shared must NEVER import features)
+```
+
+```
+app/                 thin routes + layout + route handlers boundary only
+features/<domain>/   coach (and future domains)
+    api/             HTTP helpers (no logic/UI)
+    components/      hooks/  stores/  utils/
+    types.ts         ALL domain data-model types (or types/)
+    index.ts         PUBLIC API — the only thing other slices may import
+shared/              domain-agnostic ONLY
+    components/  hooks/  utils/  constants/  lib/  types/
+styles/              named CSS homes when needed (coach desk atmosphere)
+```
+
+- No feature code bloated into `app/page.tsx`. Pages compose features and read route params only.
+- **`shared/` importing `@/features/...` is the #1 forbidden smell.**
+- Cross-feature: `@/features/<domain>` (`index.ts`) only — never deep subpaths.
+- **Inside a feature: relative imports only** (`./` / `../`). Never `@/features/<self>/…`.
+
+## Thin pages
+
+Pages compose feature components. No forms, mutations, domain toasts, or fetch orchestration in `app/page.tsx` — push into a feature hook/component.
+
+## Separation of concerns
+
+Components render JSX. Hooks decide. Utils compute (pure). Api fetches. Stores hold state.
+
+| Concern | Where |
+|---|---|
+| Mutations / coach turns | `hooks/useXxx.ts` |
+| Pure transforms | `utils/…` (no toast/navigate/network/hooks) |
+| HTTP calls | `features/<domain>/api/…` |
+| Global client state | `stores/…` (zustand) |
+
+No data fetching, `.then()` chains, or business logic in a component body — extract to a hook.
+
+## Types — strict placement
+
+- Only type in a `.tsx`: its own `type Props = {…}` above the component.
+- Domain models → `features/<domain>/types.ts`. Shared → `shared/types/`.
+- Never export a reusable type from a component/hook file.
