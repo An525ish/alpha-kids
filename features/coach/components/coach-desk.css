@@ -1673,6 +1673,10 @@
       inset 0 1px 0 color-mix(in oklab, white 80%, transparent);
   }
 
+  .ak-step {
+    align-items: center;
+  }
+
   .ak-sticky {
     transform: rotate(-0.6deg);
   }
