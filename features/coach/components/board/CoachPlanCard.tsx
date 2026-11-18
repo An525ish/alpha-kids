@@ -1,5 +1,5 @@
-import { formatMessage, getMessages, isRtlLocale } from "../i18n";
-import type { CoachReply } from "../types";
+import { formatMessage, getMessages, isRtlLocale } from "../../i18n";
+import type { CoachReply } from "../../types";
 
 type Props = {
   reply: CoachReply;

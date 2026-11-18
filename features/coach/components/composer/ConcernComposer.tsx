@@ -1,7 +1,7 @@
 "use client";
 
-import { useId, type FormEvent, type KeyboardEvent } from "react";
-import { useLocale } from "../hooks/useLocale";
+import { useId, type KeyboardEvent, type SubmitEvent } from "react";
+import { useLocale } from "../../hooks/useLocale";
 import { StarterChips } from "./StarterChips";
 
 type Props = {
@@ -24,7 +24,7 @@ export function ConcernComposer({
   const fieldId = useId();
   const { language, messages: t, isRtl, dir } = useLocale();
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     const next = value.trim();
     if (!next || disabled) return;

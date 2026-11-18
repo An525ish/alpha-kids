@@ -15,6 +15,11 @@
 app/                      thin routes + layout
   api/coach/route.ts      HTTP boundary
 features/coach/           domain UI, hooks, store, client api
+  components/             barrel index + nested by concern
+    desk/ board/ composer/ check-in/ ui/
+  types/                  all feature types + barrel index
+  i18n/messages/          locale catalogs
+styles/                   named CSS (coach-desk atmosphere)
 shared/                   domain-agnostic UI/helpers
 lib/server/coach/         service, mock, safety, schema
 docs/                     PRODUCT + TECH

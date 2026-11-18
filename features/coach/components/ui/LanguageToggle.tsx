@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment } from "react";
-import { LOCALES, type LocaleCode } from "../i18n";
+import { LOCALES, type LocaleCode } from "../../i18n";
 
 type Props = {
   value: LocaleCode;

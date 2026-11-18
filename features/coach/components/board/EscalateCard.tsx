@@ -1,5 +1,5 @@
-import { getMessages, isRtlLocale } from "../i18n";
-import type { EscalateReply } from "../types";
+import { getMessages, isRtlLocale } from "../../i18n";
+import type { EscalateReply } from "../../types";
 
 type Props = {
   reply: EscalateReply;

@@ -1,4 +1,4 @@
-import type { CoachMessages } from "../types";
+import type { CoachMessages } from "../../types";
 
 export const en: CoachMessages = {
   brand: "Alpha Kids",

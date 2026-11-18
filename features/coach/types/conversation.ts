@@ -1,4 +1,4 @@
-import type { LocaleCode } from "../../shared/i18n/locales";
+import type { LocaleCode } from "../../../shared/i18n/locales";
 
 export type ParentRole = "parent";
 export type CoachRole = "coach";

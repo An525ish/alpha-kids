@@ -3,7 +3,7 @@ import {
   isLocaleCode,
   type LocaleCode,
 } from "../../../../shared/i18n/locales";
-import type { CoachCatalog, CoachMessages } from "../types";
+import type { CoachCatalog, CoachMessages } from "../../types";
 import { en } from "./en";
 import { ur } from "./ur";
 

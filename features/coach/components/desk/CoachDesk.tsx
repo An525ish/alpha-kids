@@ -1,17 +1,17 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import type { LocaleCode } from "../i18n";
-import { useCoach } from "../hooks/useCoach";
-import { useLocale } from "../hooks/useLocale";
-import { CheckInBanner } from "./CheckInBanner";
-import { ConcernComposer } from "./ConcernComposer";
-import { ConfirmDialog } from "./ConfirmDialog";
+import { useCallback, useRef, useState } from "react";
+import type { LocaleCode } from "../../i18n";
+import { useCoach } from "../../hooks/useCoach";
+import { useLocale } from "../../hooks/useLocale";
+import { CheckInBanner } from "../check-in/CheckInBanner";
+import { MessageThread } from "../board/MessageThread";
+import { ConcernComposer } from "../composer/ConcernComposer";
+import { ConfirmDialog } from "../ui/ConfirmDialog";
+import { LanguageToggle } from "../ui/LanguageToggle";
 import { IntroArt } from "./IntroArt";
-import { LanguageToggle } from "./LanguageToggle";
-import { MessageThread } from "./MessageThread";
 import { WallShapes } from "./WallShapes";
-import "./coach-desk.css";
+import "@/styles/coach-desk.css";
 
 export function CoachDesk() {
   const {
@@ -49,11 +49,12 @@ export function CoachDesk() {
     });
   }, []);
 
-  useEffect(() => {
-    if (draft.trim().length > 0) {
+  const handleDraftChange = useCallback((next: string) => {
+    setDraft(next);
+    if (next.trim().length > 0) {
       setDockExpanded(true);
     }
-  }, [draft]);
+  }, []);
 
   function handleLanguageChange(next: LocaleCode) {
     if (next === language) return;
@@ -164,7 +165,7 @@ export function CoachDesk() {
                 value={draft}
                 disabled={isSending}
                 showStarters={!hasThread}
-                onChange={setDraft}
+                onChange={handleDraftChange}
                 onSubmit={sendConcern}
                 onCollapse={collapseDock}
               />

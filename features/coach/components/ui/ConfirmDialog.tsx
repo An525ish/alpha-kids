@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef } from "react";
-import { isRtlLocale, type LocaleCode } from "../i18n";
+import { isRtlLocale, type LocaleCode } from "../../i18n";
 
 type Props = {
   open: boolean;

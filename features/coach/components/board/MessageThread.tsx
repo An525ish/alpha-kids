@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useLocale } from "../hooks/useLocale";
-import type { ConversationMessage } from "../types";
+import { useLocale } from "../../hooks/useLocale";
+import type { ConversationMessage } from "../../types";
 import { CoachPlanCard } from "./CoachPlanCard";
 import { EscalateCard } from "./EscalateCard";
 

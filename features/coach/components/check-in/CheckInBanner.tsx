@@ -1,11 +1,11 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { getMessages, isRtlLocale } from "../i18n";
-import { useCheckInTicker } from "../hooks/useCheckInTicker";
-import type { CheckInReminder } from "../types";
-import { formatRemaining } from "../utils/checkIn";
-import { ConfirmDialog } from "./ConfirmDialog";
+import { getMessages, isRtlLocale } from "../../i18n";
+import { useCheckInTicker } from "../../hooks/useCheckInTicker";
+import type { CheckInReminder } from "../../types";
+import { formatRemaining } from "../../utils/checkIn";
+import { ConfirmDialog } from "../ui/ConfirmDialog";
 
 type Props = {
   reminder: CheckInReminder;

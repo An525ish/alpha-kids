@@ -17,12 +17,13 @@ app (pages)  ──▶  features  ──▶  shared
 app/                 thin routes + layout + route handlers boundary only
 features/<domain>/   coach (and future domains)
     api/             HTTP helpers (no logic/UI)
-    components/      hooks/  stores/  utils/
-    types.ts         ALL domain data-model types (or types/)
+    components/      nest by concern + barrel `index.ts` (desk/, board/, composer/, check-in/, ui/)
+    hooks/  stores/  utils/
+    types/           ALL feature types + barrel `index.ts` (domain + i18n catalogs)
     index.ts         PUBLIC API — the only thing other slices may import
 shared/              domain-agnostic ONLY
     components/  hooks/  utils/  constants/  lib/  types/
-styles/              named CSS homes when needed (coach desk atmosphere)
+styles/              named CSS homes (never under components/) — e.g. coach-desk.css
 ```
 
 - No feature code bloated into `app/page.tsx`. Pages compose features and read route params only.

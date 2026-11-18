@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale } from "../hooks/useLocale";
+import { useLocale } from "../../hooks/useLocale";
 
 type Props = {
   disabled: boolean;

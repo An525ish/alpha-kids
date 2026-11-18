@@ -1,1 +1,1 @@
-export { CoachDesk } from "./components/CoachDesk";
+export { CoachDesk } from "./components";
