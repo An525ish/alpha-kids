@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useLocale } from "../hooks/useLocale";
 import type { ConversationMessage } from "../types";
 import { CoachPlanCard } from "./CoachPlanCard";
 import { EscalateCard } from "./EscalateCard";
@@ -12,6 +13,7 @@ type Props = {
 
 export function MessageThread({ messages, isSending }: Props) {
   const endRef = useRef<HTMLDivElement>(null);
+  const { language, messages: t } = useLocale();
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -25,7 +27,7 @@ export function MessageThread({ messages, isSending }: Props) {
         if (message.role === "parent") {
           return (
             <article key={message.id} className="ak-note">
-              <span className="ak-note__tag">You</span>
+              <span className="ak-note__tag">{t.youTag}</span>
               <p className="ak-note__body">{message.content}</p>
             </article>
           );
@@ -39,11 +41,15 @@ export function MessageThread({ messages, isSending }: Props) {
       })}
 
       {isSending ? (
-        <p className="ak-status ak-waiting" aria-label="Writing a short plan">
+        <p
+          className="ak-status ak-waiting"
+          aria-label={t.waiting}
+          lang={language}
+        >
           <span className="ak-waiting__dot" />
           <span className="ak-waiting__dot" />
           <span className="ak-waiting__dot" />
-          Writing a short plan
+          {t.waiting}
         </p>
       ) : null}
       <div ref={endRef} />

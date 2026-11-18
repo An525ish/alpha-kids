@@ -156,6 +156,13 @@
   max-width: 10ch;
 }
 
+.ak-brand[lang="ur"] {
+  font-family: var(--font-noto-urdu), var(--font-bricolage), sans-serif;
+  letter-spacing: 0;
+  line-height: 1.15;
+  max-width: 12ch;
+}
+
 .ak-title-row {
   display: flex;
   flex-wrap: nowrap;
@@ -206,6 +213,24 @@
   display: none;
 }
 
+.ak-lang-picker {
+  display: none;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 0.75rem;
+}
+
+.ak-lang-picker__label {
+  margin: 0;
+  font-size: 0.84rem;
+  font-weight: 750;
+  color: var(--ak-ink-soft);
+}
+
+.ak-lang-picker .ak-langs--desktop {
+  display: inline-flex;
+}
+
 .ak-langs--compact {
   align-items: stretch;
   gap: 0;
@@ -229,18 +254,55 @@
 }
 
 .ak-lang {
+  appearance: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 1.45rem;
   padding: 0.15rem 0.45rem;
   border-radius: 999px;
-  border: 1.5px solid transparent;
+  border: 1.5px solid color-mix(in oklab, var(--ak-ink) 18%, transparent);
+  background: color-mix(in oklab, white 55%, transparent);
+  color: var(--ak-ink-mute);
+  font: inherit;
   font-size: 0.68rem;
-  font-weight: 800;
+  font-weight: 750;
   letter-spacing: 0.04em;
   line-height: 1;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.ak-lang:hover {
+  color: var(--ak-ink);
+  border-color: color-mix(in oklab, var(--ak-ink) 35%, transparent);
+}
+
+.ak-lang:focus-visible {
+  outline: 2px solid var(--ak-ink);
+  outline-offset: 2px;
+}
+
+.ak-lang[lang="ur"] {
+  font-family: var(--font-noto-urdu), serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  padding-block: 0.12rem 0.22rem;
+}
+
+.ak-lang--active {
+  background: var(--ak-ink);
+  color: white;
+  border-color: var(--ak-ink);
+  font-weight: 900;
   box-shadow: 1.5px 1.5px 0 color-mix(in oklab, var(--ak-ink) 14%, transparent);
+}
+
+.ak-lang--active[lang="ur"] {
+  background: var(--ak-butter);
+  color: var(--ak-ink);
+  font-weight: 800;
 }
 
 .ak-langs--compact .ak-lang {
@@ -251,42 +313,28 @@
   padding: 0;
   border: 0;
   box-shadow: none;
+  background: transparent;
   font-size: 0.7rem;
   letter-spacing: 0.03em;
 }
 
-.ak-lang--en {
-  background: var(--ak-ink);
-  color: white;
-  border-color: var(--ak-ink);
+.ak-langs--compact .ak-lang[lang="ur"] {
+  font-size: 0.72rem;
 }
 
-.ak-lang--ur {
-  background: var(--ak-butter);
-  color: var(--ak-ink);
-  border-color: var(--ak-ink);
-  font-family: var(--font-noto-urdu), serif;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0;
-  padding-block: 0.12rem 0.22rem;
-}
-
-.ak-langs--compact .ak-lang--en {
-  background: transparent;
+.ak-langs--compact .ak-lang--active {
   color: var(--ak-ink);
   font-weight: 900;
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 0.18em;
-  border-radius: 999px;
+  background: transparent;
+  box-shadow: none;
 }
 
-.ak-langs--compact .ak-lang--ur {
-  font-size: 0.72rem;
-  padding: 0;
-  background: transparent;
+.ak-langs--compact .ak-lang:not(.ak-lang--active) {
   color: var(--ak-ink-mute);
+  text-decoration: none;
   font-weight: 700;
 }
 
@@ -300,12 +348,15 @@
   border-width: 2.5px;
   font-size: 0.82rem;
   letter-spacing: 0.02em;
-  box-shadow: 3px 3px 0 color-mix(in oklab, var(--ak-ink) 12%, transparent);
 }
 
-.ak-langs--desktop .ak-lang--ur {
+.ak-langs--desktop .ak-lang[lang="ur"] {
   font-size: 1.05rem;
   padding-block: 0.35rem 0.5rem;
+}
+
+.ak-langs--desktop .ak-lang--active {
+  box-shadow: 3px 3px 0 color-mix(in oklab, var(--ak-ink) 12%, transparent);
 }
 
 .ak-board {
@@ -1299,11 +1350,11 @@
     font-size: 0.72rem;
   }
 
-  .ak-langs--compact .ak-lang--en {
+  .ak-langs--compact .ak-lang--active {
     text-underline-offset: 0.14em;
   }
 
-  .ak-langs--compact .ak-lang--ur {
+  .ak-langs--compact .ak-lang[lang="ur"] {
     font-size: 0.78rem;
   }
 
@@ -1775,7 +1826,7 @@
   .ak-kicker,
   .ak-title-row,
   .ak-lede,
-  .ak-langs--desktop,
+  .ak-lang-picker,
   .ak-art {
     grid-area: auto;
   }
@@ -1794,8 +1845,8 @@
     display: none;
   }
 
-  .ak-langs.ak-langs--desktop {
-    display: inline-flex;
+  .ak-lang-picker {
+    display: flex;
   }
 
   .ak-art {

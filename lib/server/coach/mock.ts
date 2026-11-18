@@ -190,7 +190,7 @@ function withEcho(
 }
 
 export function buildMockCoachReply(input: CoachRequest): CoachResponse {
-  const language = detectLanguage(input.message);
+  const language = input.language ?? detectLanguage(input.message);
   const crisis = detectCrisis(input.message);
   if (crisis) {
     return buildEscalateResponse(crisis.reason, language);

@@ -1,9 +1,11 @@
 "use client";
 
 import { create } from "zustand";
+import { DEFAULT_LOCALE } from "../../../shared/i18n/locales";
 import type {
   CheckInReminder,
   CoachApiReply,
+  CoachLanguage,
   ConversationMessage,
 } from "../types";
 import { reminderFromReply } from "../utils/checkIn";
@@ -14,8 +16,14 @@ type ConversationState = {
   isSending: boolean;
   error: string | null;
   reminder: CheckInReminder | null;
+  language: CoachLanguage;
+  setLanguage: (language: CoachLanguage) => void;
   addParentMessage: (content: string) => string;
   addCoachMessage: (reply: CoachApiReply) => void;
+  replaceThread: (
+    messages: ConversationMessage[],
+    reminder: CheckInReminder | null,
+  ) => void;
   setSending: (value: boolean) => void;
   setError: (message: string | null) => void;
   markReminderDue: () => void;
@@ -28,6 +36,10 @@ export const useConversationStore = create<ConversationState>((set) => ({
   isSending: false,
   error: null,
   reminder: null,
+  language: DEFAULT_LOCALE,
+  setLanguage: (language) => set({ language }),
+  replaceThread: (messages, reminder) =>
+    set({ messages, reminder, error: null }),
   addParentMessage: (content) => {
     const id = createId();
     set((state) => ({

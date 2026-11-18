@@ -1,10 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import type { LocaleCode } from "../i18n";
 import { useCoach } from "../hooks/useCoach";
+import { useLocale } from "../hooks/useLocale";
 import { CheckInBanner } from "./CheckInBanner";
 import { ConcernComposer } from "./ConcernComposer";
+import { ConfirmDialog } from "./ConfirmDialog";
 import { IntroArt } from "./IntroArt";
+import { LanguageToggle } from "./LanguageToggle";
 import { MessageThread } from "./MessageThread";
 import { WallShapes } from "./WallShapes";
 import "./coach-desk.css";
@@ -16,14 +20,18 @@ export function CoachDesk() {
     error,
     reminder,
     sendConcern,
+    relocalizeThread,
     markReminderDue,
     dismissReminder,
     clear,
   } = useCoach();
+  const { language, messages: t } = useLocale();
   const [draft, setDraft] = useState("");
   const [dockExpanded, setDockExpanded] = useState(true);
+  const [clearConfirmOpen, setClearConfirmOpen] = useState(false);
   const fieldFocusRef = useRef<HTMLDivElement>(null);
   const hasThread = messages.length > 0;
+  const canClear = hasThread || !!reminder || draft.trim().length > 0;
 
   const expandDock = useCallback(() => {
     setDockExpanded(true);
@@ -47,64 +55,54 @@ export function CoachDesk() {
     }
   }, [draft]);
 
+  function handleLanguageChange(next: LocaleCode) {
+    if (next === language) return;
+    setDraft("");
+    void relocalizeThread(next);
+  }
+
   return (
-    <main className="ak-wall">
+    <main className="ak-wall" lang={language}>
       <WallShapes />
 
       <div className="ak-wall__grid">
         <header className="ak-intro">
-          <p className="ak-kicker">Family wall coach</p>
+          <p className="ak-kicker">{t.kicker}</p>
           <div className="ak-title-row">
-            <h1 className="ak-brand">Alpha Kids</h1>
-            <ul
-              className="ak-langs ak-langs--compact"
-              aria-label="Supported languages"
-            >
-              <li>
-                <span className="ak-lang ak-lang--en">EN</span>
-              </li>
-              <li className="ak-langs__rule" aria-hidden="true" />
-              <li>
-                <span className="ak-lang ak-lang--ur" lang="ur">
-                  اردو
-                </span>
-              </li>
-            </ul>
+            <h1 className="ak-brand" lang={language}>
+              {t.brand}
+            </h1>
+            <LanguageToggle
+              variant="compact"
+              value={language}
+              ariaLabel={t.languageToggleAria}
+              onChange={handleLanguageChange}
+            />
           </div>
-          <p className="ak-lede ak-lede--full">
-            Pin what is hard. Stick a short plan. Come back when the timer dings.
-          </p>
-          <p className="ak-lede ak-lede--short">
-            Pin what is hard. Stick a short plan.
-          </p>
-          <ul className="ak-langs ak-langs--desktop" aria-label="Supported languages">
-            <li>
-              <span className="ak-lang ak-lang--en">English</span>
-            </li>
-            <li>
-              <span className="ak-lang ak-lang--ur" lang="ur">
-                اردو
-              </span>
-            </li>
-          </ul>
+          <p className="ak-lede ak-lede--full">{t.ledeFull}</p>
+          <p className="ak-lede ak-lede--short">{t.ledeShort}</p>
+          <div className="ak-lang-picker">
+            <p className="ak-lang-picker__label">{t.languageToggleLabel}</p>
+            <LanguageToggle
+              variant="desktop"
+              value={language}
+              ariaLabel={t.languageToggleAria}
+              onChange={handleLanguageChange}
+            />
+          </div>
           <IntroArt />
         </header>
 
-        <section className="ak-board" aria-label="Coaching board">
+        <section className="ak-board" aria-label={t.boardAria}>
           <div className="ak-board__bar">
-            <p className="ak-board__bar-label">Your board</p>
+            <p className="ak-board__bar-label">{t.boardLabel}</p>
             <button
               className="ak-btn ak-btn--ghost ak-board__clear"
               type="button"
-              disabled={!hasThread && !reminder && draft.trim().length === 0}
-              onClick={() => {
-                clear();
-                setDraft("");
-                dismissReminder();
-                setDockExpanded(true);
-              }}
+              disabled={!canClear}
+              onClick={() => setClearConfirmOpen(true)}
             >
-              Clear the board
+              {t.boardClear}
             </button>
           </div>
 
@@ -129,10 +127,8 @@ export function CoachDesk() {
 
             {!hasThread && !isSending ? (
               <div className="ak-empty">
-                <p className="ak-empty__title">Nothing here yet. Start with whatever's hard.</p>
-                <p className="ak-empty__body">
-                  Bedtime, big feelings, school mornings, sibling fights. Tap one below or write your own.
-                </p>
+                <p className="ak-empty__title">{t.emptyTitle}</p>
+                <p className="ak-empty__body">{t.emptyBody}</p>
               </div>
             ) : null}
 
@@ -147,7 +143,7 @@ export function CoachDesk() {
               <button
                 type="button"
                 className="ak-dock-peek"
-                aria-label={hasThread ? "Expand composer" : "Pin a concern"}
+                aria-label={t.peekAria}
                 onClick={() => {
                   expandDock();
                   requestAnimationFrame(() => {
@@ -161,7 +157,7 @@ export function CoachDesk() {
                     <span />
                   </span>
                 </span>
-                {hasThread ? "Write another update" : "Type what's hard"}
+                {hasThread ? t.peekThread : t.peekEmpty}
               </button>
             ) : (
               <ConcernComposer
@@ -176,6 +172,23 @@ export function CoachDesk() {
           </div>
         </section>
       </div>
+
+      <ConfirmDialog
+        open={clearConfirmOpen}
+        language={language}
+        title={t.clearConfirmTitle}
+        body={t.clearConfirmBody}
+        cancelLabel={t.clearConfirmKeep}
+        confirmLabel={t.clearConfirmClear}
+        onClose={() => setClearConfirmOpen(false)}
+        onConfirm={() => {
+          setClearConfirmOpen(false);
+          clear();
+          setDraft("");
+          dismissReminder();
+          setDockExpanded(true);
+        }}
+      />
     </main>
   );
 }

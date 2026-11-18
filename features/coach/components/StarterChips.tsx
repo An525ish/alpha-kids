@@ -1,4 +1,6 @@
-import { CONCERN_STARTERS } from "../constants/starters";
+"use client";
+
+import { useLocale } from "../hooks/useLocale";
 
 type Props = {
   disabled: boolean;
@@ -6,9 +8,16 @@ type Props = {
 };
 
 export function StarterChips({ disabled, onPick }: Props) {
+  const { language, messages: t } = useLocale();
+
   return (
-    <div className="ak-starters" role="group" aria-label="Common concerns">
-      {CONCERN_STARTERS.map((starter) => (
+    <div
+      className="ak-starters"
+      role="group"
+      aria-label={t.startersAria}
+      lang={language}
+    >
+      {t.starters.map((starter) => (
         <button
           key={starter.id}
           type="button"

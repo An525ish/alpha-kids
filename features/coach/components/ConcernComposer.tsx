@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, type FormEvent, type KeyboardEvent } from "react";
+import { useLocale } from "../hooks/useLocale";
 import { StarterChips } from "./StarterChips";
 
 type Props = {
@@ -21,6 +22,7 @@ export function ConcernComposer({
   onCollapse,
 }: Props) {
   const fieldId = useId();
+  const { language, messages: t, isRtl, dir } = useLocale();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -38,13 +40,17 @@ export function ConcernComposer({
   }
 
   return (
-    <form className="ak-sticky" onSubmit={handleSubmit}>
+    <form
+      className={`ak-sticky${isRtl ? " ak-rtl" : ""}`}
+      lang={language}
+      onSubmit={handleSubmit}
+    >
       <button
         type="button"
         className="ak-sticky__pin"
         onClick={onCollapse}
-        aria-label="Collapse composer"
-        title="Collapse"
+        aria-label={t.composerCollapse}
+        title={t.composerCollapse}
       >
         <span className="ak-sticky__pin-arrows" aria-hidden="true">
           <span />
@@ -52,7 +58,7 @@ export function ConcernComposer({
         </span>
       </button>
       <label className="ak-sticky__label" htmlFor={fieldId}>
-        What's going on
+        {t.composerLabel}
       </label>
       <textarea
         id={fieldId}
@@ -63,8 +69,9 @@ export function ConcernComposer({
         disabled={disabled}
         onChange={(event) => onChange(event.target.value)}
         onKeyDown={handleKeyDown}
-        placeholder="English or Urdu. Just type what's hard right now."
+        placeholder={t.composerPlaceholder}
         maxLength={2000}
+        dir={dir}
       />
       {showStarters ? (
         <StarterChips disabled={disabled} onPick={(fill) => onChange(fill)} />
@@ -75,9 +82,9 @@ export function ConcernComposer({
           type="submit"
           disabled={disabled || value.trim().length === 0}
         >
-          Stick a plan
+          {t.composerSubmit}
         </button>
-        <p className="ak-trust">Not a doctor. Not for emergencies.</p>
+        <p className="ak-trust">{t.composerTrust}</p>
       </div>
     </form>
   );

@@ -31,6 +31,9 @@ Replies are **mock / deterministic**.
 - Implementation: `mock.ts` + `safety.ts`
 - Contract: Zod schemas in `schema.ts`
 - Timed check-ins: `checkIn.dueInMinutes` drives an in-page reminder (Zustand + ticker). No persistence across reloads.
+- Reply language: optional `language` on the request (UI toggle). Falls back to script detection if omitted.
+- UI i18n: `shared/i18n/locales.ts` (locale registry) + `features/coach/i18n/messages/*` (string catalogs). Components use `useLocale()` / `getMessages()` only. No user-facing strings in JSX.
+- To add a locale: extend `LOCALE_CODES` + `LOCALES`, add `messages/<code>.ts`, register in `messages/index.ts`, and extend server mock/schema content as needed.
 
 Do **not** add LLM SDKs (`openai`, Anthropic, Gemini, etc.) or API keys until this doc is updated.
 

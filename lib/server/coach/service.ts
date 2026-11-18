@@ -25,7 +25,9 @@ export async function getCoachReply(
   }
 
   const input: CoachRequest = parsed.data;
-  await wait(MOCK_DELAY_MS);
+  if (!input.instant) {
+    await wait(MOCK_DELAY_MS);
+  }
 
   const reply = buildMockCoachReply(input);
   const checked = coachResponseSchema.safeParse(reply);

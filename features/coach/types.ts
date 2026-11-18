@@ -1,5 +1,10 @@
+import type { LocaleCode } from "../../shared/i18n/locales";
+
 export type ParentRole = "parent";
 export type CoachRole = "coach";
+
+/** App + API locale. Extend via shared/i18n/locales.ts */
+export type CoachLanguage = LocaleCode;
 
 export type CheckIn = {
   type: "question" | "time";
@@ -9,7 +14,7 @@ export type CheckIn = {
 
 export type CoachReply = {
   mode: "coach";
-  language: "en" | "ur";
+  language: CoachLanguage;
   summary: string;
   steps: string[];
   checkIn: CheckIn;
@@ -17,7 +22,7 @@ export type CoachReply = {
 
 export type EscalateReply = {
   mode: "escalate";
-  language: "en" | "ur";
+  language: CoachLanguage;
   reason: "emergency" | "abuse" | "self_harm";
   message: string;
   resources: string[];
@@ -44,12 +49,14 @@ export type ConversationMessage = ParentMessage | CoachMessage;
 export type CoachRequestBody = {
   message: string;
   history: { role: "parent" | "coach"; content: string }[];
+  language?: CoachLanguage;
+  instant?: boolean;
 };
 
 export type CheckInReminder = {
   id: string;
   text: string;
-  language: "en" | "ur";
+  language: CoachLanguage;
   dueAt: number;
   dueInMinutes: number;
   status: "pending" | "due";

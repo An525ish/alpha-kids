@@ -1,3 +1,4 @@
+import { getMessages, isRtlLocale } from "../i18n";
 import type { EscalateReply } from "../types";
 
 type Props = {
@@ -5,7 +6,8 @@ type Props = {
 };
 
 export function EscalateCard({ reply }: Props) {
-  const rtl = reply.language === "ur";
+  const t = getMessages(reply.language);
+  const rtl = isRtlLocale(reply.language);
 
   return (
     <article
@@ -13,9 +15,7 @@ export function EscalateCard({ reply }: Props) {
       lang={reply.language}
       role="alert"
     >
-      <p className="ak-escalate__eyebrow">
-        {rtl ? "ابھی حقیقی مدد" : "Get real help now"}
-      </p>
+      <p className="ak-escalate__eyebrow">{t.escalateEyebrow}</p>
       <p className="ak-summary">{reply.message}</p>
       <ul className="ak-resources">
         {reply.resources.map((item) => (
