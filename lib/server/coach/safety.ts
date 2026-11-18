@@ -48,11 +48,11 @@ export function buildEscalateResponse(
       language: "ur",
       reason,
       message:
-        "یہ صورتحال کوچنگ سے باہر ہے۔ ابھی مقامی ایمرجنسی سروسز یا کسی قابلِ اعتماد مددگار سے رابطہ کریں۔",
+        "یہ کوچنگ سے بڑی بات ہے۔ ابھی قریب مدد لیں جو حقیقی طور پر مدد کر سکے۔",
       resources: [
-        "فوری خطرے پر مقامی ایمرجنسی نمبر پر کال کریں۔",
-        "قریب کے کسی قابلِ اعتماد شخص کو بتائیں۔",
-        "Alpha Kids طبی یا قانونی مشورہ نہیں دیتا۔",
+        "خطرہ ہو تو مقامی ایمرجنسی نمبر پر کال کریں۔",
+        "کسی قابلِ اعتماد شخص کو بتائیں جو پاس ہو۔",
+        "Alpha Kids ڈاکٹر یا وکیل نہیں ہے۔",
       ],
     };
   }
@@ -62,11 +62,11 @@ export function buildEscalateResponse(
     language: "en",
     reason,
     message:
-      "This is outside coaching. Contact local emergency services or a trusted person who can help right now.",
+      "This is bigger than coaching. Please get real help nearby right now.",
     resources: [
-      "If anyone is in immediate danger, call your local emergency number.",
-      "Tell a trusted adult or professional nearby.",
-      "Alpha Kids does not give medical or legal advice.",
+      "If someone is in danger, call your local emergency number.",
+      "Tell a trusted person who can help in person.",
+      "Alpha Kids is not a doctor or lawyer.",
     ],
   };
 }

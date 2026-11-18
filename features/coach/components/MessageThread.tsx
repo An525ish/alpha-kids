@@ -25,7 +25,7 @@ export function MessageThread({ messages, isSending }: Props) {
         if (message.role === "parent") {
           return (
             <article key={message.id} className="ak-note">
-              <span className="ak-note__tag">You wrote</span>
+              <span className="ak-note__tag">You</span>
               <p className="ak-note__body">{message.content}</p>
             </article>
           );
@@ -39,11 +39,11 @@ export function MessageThread({ messages, isSending }: Props) {
       })}
 
       {isSending ? (
-        <p className="ak-status ak-waiting" aria-label="Making a plan">
+        <p className="ak-status ak-waiting" aria-label="Writing a short plan">
           <span className="ak-waiting__dot" />
           <span className="ak-waiting__dot" />
           <span className="ak-waiting__dot" />
-          Making a short plan
+          Writing a short plan
         </p>
       ) : null}
       <div ref={endRef} />

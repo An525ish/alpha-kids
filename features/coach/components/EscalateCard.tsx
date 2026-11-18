@@ -14,7 +14,7 @@ export function EscalateCard({ reply }: Props) {
       role="alert"
     >
       <p className="ak-escalate__eyebrow">
-        {rtl ? "فوری توجہ" : "Needs real help now"}
+        {rtl ? "ابھی حقیقی مدد" : "Get real help now"}
       </p>
       <p className="ak-summary">{reply.message}</p>
       <ul className="ak-resources">

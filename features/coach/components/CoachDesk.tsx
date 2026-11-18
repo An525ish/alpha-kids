@@ -129,9 +129,9 @@ export function CoachDesk() {
 
             {!hasThread && !isSending ? (
               <div className="ak-empty">
-                <p className="ak-empty__title">Empty board. Start with one hard moment.</p>
+                <p className="ak-empty__title">Nothing here yet. Start with whatever's hard.</p>
                 <p className="ak-empty__body">
-                  Bedtime, tantrums, school rush, sibling fights. Tap a magnet below or write your own.
+                  Bedtime, big feelings, school mornings, sibling fights. Tap one below or write your own.
                 </p>
               </div>
             ) : null}
@@ -161,7 +161,7 @@ export function CoachDesk() {
                     <span />
                   </span>
                 </span>
-                {hasThread ? "Pin another concern" : "Pin a concern"}
+                {hasThread ? "Write another update" : "Type what's hard"}
               </button>
             ) : (
               <ConcernComposer

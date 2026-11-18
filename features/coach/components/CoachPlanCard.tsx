@@ -22,16 +22,28 @@ export function CoachPlanCard({ reply }: Props) {
       </ol>
       <div className="ak-checkin">
         <span className="ak-checkin__label">
-          {hasTimer ? (rtl ? "کچن ٹائمر" : "Kitchen timer") : rtl ? "چیک اِن" : "Check-in"}
+          {hasTimer
+            ? rtl
+              ? "کچن ٹائمر"
+              : "Kitchen timer"
+            : rtl
+              ? "ایک سوال"
+              : "Quick question"}
         </span>
         <p>{reply.checkIn.text}</p>
         {hasTimer ? (
           <p className="ak-checkin__meta">
             {rtl
-              ? `اوپر ${reply.checkIn.dueInMinutes} منٹ کا ٹائمر چل رہا ہے۔`
-              : `${reply.checkIn.dueInMinutes} min timer is running on the board.`}
+              ? `اوپر ${reply.checkIn.dueInMinutes} منٹ کا ٹائمر لگ رہا ہے۔`
+              : `${reply.checkIn.dueInMinutes} min timer is up on the board.`}
           </p>
-        ) : null}
+        ) : (
+          <p className="ak-checkin__meta">
+            {rtl
+              ? "جب تیار ہوں، نیچے جواب لکھ دیں۔"
+              : "When you're ready, type the answer below."}
+          </p>
+        )}
       </div>
     </article>
   );

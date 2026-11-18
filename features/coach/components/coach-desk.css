@@ -424,9 +424,8 @@
   flex-shrink: 0;
 }
 
+/* Same layout/centering as expanded; flip the whole arrow set upward */
 .ak-sticky__pin-arrows--up {
-  /* Flipped pin: padding-top becomes visual bottom inset, lifts arrows to center */
-  padding: 0.16rem 0 0;
   transform: scaleY(-1);
 }
 
@@ -470,10 +469,11 @@
 .ak-timer__close {
   appearance: none;
   position: absolute;
-  top: 0.35rem;
-  right: 0.35rem;
-  width: 1.7rem;
-  height: 1.7rem;
+  top: 0.2rem;
+  right: 0.2rem;
+  z-index: 3;
+  width: 2rem;
+  height: 2rem;
   display: grid;
   place-items: center;
   border: 0;
@@ -486,6 +486,14 @@
   font-weight: 700;
   cursor: pointer;
   opacity: 0.75;
+  /* Extra tap room on phones without growing the visible chip much */
+  touch-action: manipulation;
+}
+
+.ak-timer__close::before {
+  content: "";
+  position: absolute;
+  inset: -0.35rem;
 }
 
 .ak-timer__close:hover,
@@ -510,6 +518,12 @@
 
 .ak-timer__body {
   min-width: 0;
+  padding-right: 0.85rem;
+}
+
+.ak-timer.ak-rtl .ak-timer__body {
+  padding-right: 0;
+  padding-left: 0.85rem;
 }
 
 .ak-timer__dial {
@@ -570,6 +584,121 @@
 .ak-timer--due .ak-btn--primary {
   background: var(--ak-ink);
   color: white;
+}
+
+.ak-confirm {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  margin: 0;
+  padding:
+    max(1rem, env(safe-area-inset-top))
+    max(1rem, env(safe-area-inset-right))
+    max(1rem, env(safe-area-inset-bottom))
+    max(1rem, env(safe-area-inset-left));
+  border: 0;
+  background: transparent;
+  color: var(--ak-ink);
+}
+
+.ak-confirm[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ak-confirm::backdrop {
+  background: color-mix(in oklab, var(--ak-ink) 52%, transparent);
+  backdrop-filter: blur(2px);
+}
+
+.ak-confirm__card {
+  width: min(22rem, 100%);
+  max-height: min(70dvh, 100%);
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 1.2rem 1.15rem 1.15rem;
+  border-radius: 1.15rem;
+  border: 3px solid var(--ak-ink);
+  background: white;
+  box-shadow: 6px 8px 0 var(--ak-ink);
+  color: var(--ak-ink);
+}
+
+.ak-confirm__title {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-bricolage), sans-serif;
+  font-size: clamp(1.1rem, 4.2vw, 1.25rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.ak-confirm__body {
+  margin: 0 0 1.1rem;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  font-weight: 550;
+  color: var(--ak-ink-soft);
+}
+
+.ak-confirm__actions {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+.ak-confirm__actions .ak-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ak-confirm__actions .ak-btn--ghost {
+  color: var(--ak-ink-soft);
+  text-decoration: none;
+  min-height: 2.65rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 750;
+  width: 100%;
+}
+
+.ak-confirm__actions .ak-btn--ghost:hover {
+  background: color-mix(in oklab, var(--ak-ink) 6%, white);
+}
+
+.ak-confirm__actions .ak-btn--primary {
+  min-height: 2.65rem;
+  padding: 0.55rem 1rem;
+  width: 100%;
+}
+
+@media (min-width: 480px) {
+  .ak-confirm__card {
+    padding: 1.35rem 1.35rem 1.25rem;
+  }
+
+  .ak-confirm__actions {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .ak-confirm__actions .ak-btn--ghost,
+  .ak-confirm__actions .ak-btn--primary {
+    width: auto;
+  }
+
+  .ak-confirm.ak-rtl .ak-confirm__actions {
+    justify-content: flex-start;
+    flex-direction: row-reverse;
+  }
 }
 
 /* Sticky composer */
@@ -1225,14 +1354,29 @@
   .ak-timer__close {
     top: 0.2rem;
     right: 0.2rem;
-    width: 1.5rem;
-    height: 1.5rem;
-    font-size: 1.1rem;
+    width: 1.35rem;
+    height: 1.35rem;
+    font-size: 0.95rem;
+  }
+
+  .ak-timer__close::before {
+    inset: -0.55rem;
   }
 
   .ak-timer.ak-rtl .ak-timer__close {
     right: auto;
-    left: 0.2rem;
+    left: 0.1rem;
+  }
+
+  .ak-timer__body {
+    position: relative;
+    z-index: 0;
+    padding-right: 0.75rem;
+  }
+
+  .ak-timer.ak-rtl .ak-timer__body {
+    padding-right: 0;
+    padding-left: 0.75rem;
   }
 
   .ak-timer__dial {

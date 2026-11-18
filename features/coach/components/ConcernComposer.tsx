@@ -52,7 +52,7 @@ export function ConcernComposer({
         </span>
       </button>
       <label className="ak-sticky__label" htmlFor={fieldId}>
-        Pin a concern
+        What's going on
       </label>
       <textarea
         id={fieldId}
@@ -63,7 +63,7 @@ export function ConcernComposer({
         disabled={disabled}
         onChange={(event) => onChange(event.target.value)}
         onKeyDown={handleKeyDown}
-        placeholder="English or Urdu. What is hard right now?"
+        placeholder="English or Urdu. Just type what's hard right now."
         maxLength={2000}
       />
       {showStarters ? (

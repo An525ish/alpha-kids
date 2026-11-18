@@ -33,134 +33,128 @@ type Template = Omit<CoachPayload, "summary" | "language"> & {
 const TEMPLATES: Record<Topic, Template> = {
   sleep: {
     mode: "coach",
-    summaryEn: "Nights settle when the wind-down stays boring and the same.",
-    summaryUr: "رات تب سنبھلتی ہے جب آرام کا معمول سادہ اور ایک جیسا ہو۔",
+    summaryEn: "Bedtime usually softens when tonight looks like last night.",
+    summaryUr: "سونے کا وقت آسان ہوتا ہے جب آج رات کل جیسی سادہ ہو۔",
     steps: [
-      "Pick one wind-down cue (same song or same light) and use only that tonight.",
-      "Screens off for the last 30 minutes. Lights-out time stays fixed.",
-      "If they call out, check once, keep words short, leave calmly.",
+      "Pick one boring wind-down for tonight, same song or same lamp, nothing new.",
+      "Screens off about 30 minutes before bed. Keep lights-out at the same time.",
+      "If they call out, go in once, say something short, then leave.",
     ],
     checkIn: {
       type: "time",
-      text: "Come back in 20 minutes after lights-out. How many call-outs?",
+      text: "Come back in 20 minutes after lights-out. How many times did they call you?",
       dueInMinutes: 20,
     },
   },
   tantrum: {
     mode: "coach",
-    summaryEn: "Big feelings need a smaller stage. You stay steady while it passes.",
-    summaryUr: "غصے کے لمحے میں آپ پرسکون رہیں، لمبی بات بعد میں۔",
+    summaryEn: "When they're flooded, keep it small. You don't need a speech right now.",
+    summaryUr: "جب بچہ غصے میں ہو، بات چھوٹی رکھیں۔ لمبی بات بعد میں۔",
     steps: [
-      "Move to a quieter spot if you can. Fewer eyes, less fuel.",
-      "Name one feeling in a short sentence. No lecture mid-storm.",
-      "When the body settles, offer water, a hug, or a choice of two.",
+      "Move somewhere quieter if you can. Less of an audience helps.",
+      "Name one feeling in a short line. Save the big talk for later.",
+      "When they settle, offer water, a hug, or two simple choices.",
     ],
     checkIn: {
-      type: "time",
-      text: "Come back in 15 minutes. What calmed them first?",
-      dueInMinutes: 15,
+      type: "question",
+      text: "What helped first after it passed: your voice, some space, or water?",
     },
   },
   school: {
     mode: "coach",
-    summaryEn: "Mornings get lighter when tonight does the prep.",
-    summaryUr: "صبح آسان تب بنتی ہے جب رات کو تیاری ہو۔",
+    summaryEn: "Mornings get less crazy if you handle the fiddly stuff tonight.",
+    summaryUr: "صبح ہلکی پڑتی ہے جب رات کو چھوٹی تیاری ہو جائے۔",
     steps: [
       "Bag, clothes, and water bottle by the door before bed.",
-      "Pick one morning friction and script one calm sentence for it.",
-      "Add two extra minutes for that hard step so you are not rushing.",
+      "Think of the morning fight that always starts it, and pick one calm line you'll say.",
+      "Give that hard step two extra minutes so you're not rushing and yelling.",
     ],
     checkIn: {
       type: "time",
-      text: "Come back in 25 minutes after you finish tonight's prep.",
+      text: "Come back in 25 minutes after tonight's prep. What still feels messy?",
       dueInMinutes: 25,
     },
   },
   sibling: {
     mode: "coach",
-    summaryEn: "Sibling heat drops with one clear rule and fair turns.",
-    summaryUr: "بہن بھائی کی لڑائی میں ایک اصول اور باری واضح رکھیں۔",
+    summaryEn: "When they go at each other, one clear rule beats a long lecture.",
+    summaryUr: "لڑائی میں ایک واضح اصول لمبی نصیحت سے بہتر ہے۔",
     steps: [
-      "If bodies are unsafe, separate them for two minutes first.",
-      "State one house rule in one sentence.",
-      "Give each child one turn to speak while the other waits.",
+      "If someone might get hurt, separate them for a couple of minutes first.",
+      "Say one house rule in one short sentence.",
+      "Let each kid talk for a turn while the other waits.",
     ],
     checkIn: {
-      type: "time",
-      text: "Come back in 20 minutes. Did the turns hold?",
-      dueInMinutes: 20,
+      type: "question",
+      text: "Did the turns stick, or did it tip back into fighting?",
     },
   },
   general: {
     mode: "coach",
-    summaryEn: "One small move you can finish today beats a long lecture.",
-    summaryUr: "آج ایک چھوٹا قدم کافی ہے۔ لمبی بات بعد میں۔",
+    summaryEn: "You don't need a big talk. One small thing you can do today is enough.",
+    summaryUr: "بڑی تقریر کی ضرورت نہیں۔ آج ایک چھوٹا سا کام کافی ہے۔",
     steps: [
-      "Name the outcome you want in one sentence.",
-      "Choose one action under five minutes that nudges toward it.",
-      "Tell your child the plan in one calm sentence, then do it.",
+      "Say out loud what you want to change, in one plain sentence.",
+      "Pick one thing under five minutes that moves you that way.",
+      "Tell your kid the plan in one calm line, then do it.",
     ],
     checkIn: {
-      type: "time",
-      text: "Come back in 20 minutes and say what you tried.",
-      dueInMinutes: 20,
+      type: "question",
+      text: "What's the small thing you're going to try first?",
     },
   },
 };
 
 const URDU_STEPS: Record<Topic, string[]> = {
   sleep: [
-    "آج صرف ایک آرام کا اشارہ چنیں (ایک گانا یا مدھم روشنی)۔",
-    "آخری تیس منٹ اسکرین بند، سونے کا وقت طے شدہ۔",
-    "اگر بلایا جائے تو مختصر جواب دیں، پرسکون رہیں، کمرے سے باہر آ جائیں۔",
+    "آج رات صرف ایک سادہ معمول رکھیں، ایک گانا یا ایک لائٹ، کچھ نیا نہیں۔",
+    "سونے سے تقریباً تیس منٹ پہلے اسکرین بند۔ وقت ایک جیسا رکھیں۔",
+    "اگر بلائے تو ایک بار جائیں، مختصر بات کریں، پھر باہر آ جائیں۔",
   ],
   tantrum: [
-    "ممکن ہو تو پرسکون جگہ پر لے جائیں۔",
-    "ایک مختصر جملے میں جذبہ نامزد کریں۔ لمبی نصیحت اب نہیں۔",
+    "ہو سکے تو تھوڑی پرسکون جگہ پر لے جائیں۔ کم لوگ، کم شور۔",
+    "ایک مختصر جملے میں جذبہ کہہ دیں۔ لمبی بات بعد میں۔",
     "جب سکون آئے تو پانی، گلے، یا دو آسان اختیار دیں۔",
   ],
   school: [
-    "رات کو بیگ، کپڑے اور پانی دروازے کے پاس رکھیں۔",
-    "صبح کی ایک مشکل چیز کے لیے ایک پرسکون جملہ طے کریں۔",
-    "اس قدم کے لیے دو اضافی منٹ رکھیں تاکہ جلدی میں بحث نہ ہو۔",
+    "رات کو بیگ، کپڑے اور پانی دروازے کے پاس رکھ دیں۔",
+    "صبح والی وہ لڑائی سوچیں جو ہمیشہ شروع کرتی ہے، اور ایک پرسکون جملہ طے کر لیں۔",
+    "اس مشکل قدم کے لیے دو منٹ زیادہ رکھیں تاکہ دوڑتے ہوئے چیخ نہ پڑے۔",
   ],
   sibling: [
-    "اگر مار پیٹ ہو تو دو منٹ الگ کریں۔ حفاظت پہلے۔",
-    "ایک گھر کا اصول ایک جملے میں کہیں۔",
+    "اگر چوٹ لگ سکتی ہو تو پہلے دو منٹ الگ کر دیں۔",
+    "گھر کا ایک اصول ایک چھوٹے جملے میں کہیں۔",
     "ہر بچے کو ایک باری بولنے دیں، دوسرا انتظار کرے۔",
   ],
   general: [
-    "اپنی فکر ایک جملے میں لکھیں: کیا ہوا، اور آپ کیا چاہتے ہیں۔",
-    "پانچ منٹ سے کم کا ایک عملی قدم چنیں۔",
-    "عمل سے پہلے بچے کو ایک پرسکون جملے میں منصوبہ بتائیں۔",
+    "جو بدلنا چاہتے ہیں وہ ایک سادہ جملے میں کہہ لیں۔",
+    "پانچ منٹ سے کم کا ایک چھوٹا کام چنیں۔",
+    "بچے کو ایک پرسکون جملے میں بتائیں، پھر وہی کریں۔",
   ],
 };
 
 const URDU_CHECKINS: Record<Topic, CoachPayload["checkIn"]> = {
   sleep: {
     type: "time",
-    text: "بیس منٹ بعد واپس آئیں: کتنی بار بلایا؟",
+    text: "بیس منٹ بعد بتائیں: کتنی بار بلایا؟",
     dueInMinutes: 20,
   },
   tantrum: {
-    type: "time",
-    text: "پندرہ منٹ بعد بتائیں کیا سکون لایا۔",
-    dueInMinutes: 15,
+    type: "question",
+    text: "غصے کے بعد کیا پہلے کام آیا: آپ کی آواز، تھوڑی جگہ، یا پانی؟",
   },
   school: {
     type: "time",
-    text: "پچیس منٹ بعد تیاری کے بعد بتائیں کیا بچا۔",
+    text: "پچیس منٹ بعد تیاری کے بعد بتائیں: اب کیا الجھا ہوا لگتا ہے؟",
     dueInMinutes: 25,
   },
   sibling: {
-    type: "time",
-    text: "بیس منٹ بعد بتائیں باری چلی یا نہیں۔",
-    dueInMinutes: 20,
+    type: "question",
+    text: "کیا باری چلی، یا پھر لڑائی شروع ہو گئی؟",
   },
   general: {
-    type: "time",
-    text: "بیس منٹ بعد بتائیں آپ نے کیا آزمایا۔",
-    dueInMinutes: 20,
+    type: "question",
+    text: "پہلے کون سا چھوٹا کام آزمائیں گے؟",
   },
 };
 
@@ -189,8 +183,8 @@ function withEcho(
   const snippet = concernSnippet(message);
   const combined =
     language === "ur"
-      ? `آپ نے لکھا: «${snippet}». ${baseSummary}`
-      : `You wrote: “${snippet}”. ${baseSummary}`;
+      ? `سمجھا: «${snippet}». ${baseSummary}`
+      : `Got it: “${snippet}”. ${baseSummary}`;
   if (combined.length <= 400) return combined;
   return `${combined.slice(0, 397).trimEnd()}…`;
 }
