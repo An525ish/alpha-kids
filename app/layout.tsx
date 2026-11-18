@@ -27,7 +27,10 @@ export const metadata: Metadata = {
     "Pin a parenting concern. Get a short plan and a kitchen-timer check-in. English or Urdu.",
   applicationName: "Alpha Kids",
   icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
   },
   openGraph: {
     title: "Alpha Kids",
