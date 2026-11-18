@@ -39,6 +39,15 @@ export function CheckInBanner({
       role="status"
       aria-live="polite"
     >
+      <button
+        className="ak-timer__close"
+        type="button"
+        onClick={onDismiss}
+        aria-label={rtl ? "چھوڑیں" : "Dismiss"}
+      >
+        <span aria-hidden="true">×</span>
+      </button>
+
       <div
         className="ak-timer__dial"
         style={{ ["--progress" as string]: progress }}
@@ -49,7 +58,7 @@ export function CheckInBanner({
         </div>
       </div>
 
-      <div>
+      <div className="ak-timer__body">
         <span className="ak-timer__label">
           {isDue
             ? rtl
@@ -60,16 +69,13 @@ export function CheckInBanner({
               : "Kitchen timer"}
         </span>
         <p className="ak-timer__text">{reminder.text}</p>
-        <div className="ak-timer__actions">
-          {isDue ? (
+        {isDue ? (
+          <div className="ak-timer__actions">
             <button className="ak-btn ak-btn--primary" type="button" onClick={onReply}>
               {rtl ? "جواب لکھیں" : "Write an update"}
             </button>
-          ) : null}
-          <button className="ak-btn ak-btn--ghost" type="button" onClick={onDismiss}>
-            {rtl ? "چھوڑیں" : "Dismiss"}
-          </button>
-        </div>
+          </div>
+        ) : null}
       </div>
     </aside>
   );

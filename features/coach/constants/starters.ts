@@ -13,7 +13,7 @@ export const CONCERN_STARTERS: ConcernStarter[] = [
   },
   {
     id: "school",
-    label: "School morning",
+    label: "School",
     fill: "School mornings are chaos with shoes, breakfast, and rushing out the door.",
   },
   {

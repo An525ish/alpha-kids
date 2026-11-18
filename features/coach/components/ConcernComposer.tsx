@@ -9,6 +9,7 @@ type Props = {
   showStarters: boolean;
   onChange: (value: string) => void;
   onSubmit: (message: string) => void | Promise<void>;
+  onCollapse: () => void;
 };
 
 export function ConcernComposer({
@@ -17,6 +18,7 @@ export function ConcernComposer({
   showStarters,
   onChange,
   onSubmit,
+  onCollapse,
 }: Props) {
   const fieldId = useId();
 
@@ -37,7 +39,18 @@ export function ConcernComposer({
 
   return (
     <form className="ak-sticky" onSubmit={handleSubmit}>
-      <span className="ak-sticky__pin" aria-hidden="true" />
+      <button
+        type="button"
+        className="ak-sticky__pin"
+        onClick={onCollapse}
+        aria-label="Collapse composer"
+        title="Collapse"
+      >
+        <span className="ak-sticky__pin-arrows" aria-hidden="true">
+          <span />
+          <span />
+        </span>
+      </button>
       <label className="ak-sticky__label" htmlFor={fieldId}>
         Pin a concern
       </label>
@@ -57,7 +70,6 @@ export function ConcernComposer({
         <StarterChips disabled={disabled} onPick={(fill) => onChange(fill)} />
       ) : null}
       <div className="ak-sticky__row">
-        <p className="ak-trust">Not a doctor. Not for emergencies.</p>
         <button
           className="ak-btn ak-btn--primary"
           type="submit"
@@ -65,6 +77,7 @@ export function ConcernComposer({
         >
           Stick a plan
         </button>
+        <p className="ak-trust">Not a doctor. Not for emergencies.</p>
       </div>
     </form>
   );

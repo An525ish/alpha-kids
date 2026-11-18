@@ -24,9 +24,10 @@ export function MessageThread({ messages, isSending }: Props) {
       {messages.map((message) => {
         if (message.role === "parent") {
           return (
-            <p key={message.id} className="ak-note">
-              {message.content}
-            </p>
+            <article key={message.id} className="ak-note">
+              <span className="ak-note__tag">You wrote</span>
+              <p className="ak-note__body">{message.content}</p>
+            </article>
           );
         }
 
